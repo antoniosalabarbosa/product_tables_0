@@ -1,7 +1,7 @@
-interface UserRequest {
+interface IUserRequest {
     _id?: string;
     name: string;
     price: string;
 }
 
-export default UserRequest;
+export default IUserRequest;

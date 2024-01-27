@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { getApi } from "../libs/axios";
 import { HTMLTable, HTMLTableRow } from "../components/HTMLTable";
-import UserRequest from "../typescript/interfaces/UserRequest";
+import IUserRequest from "../typescript/interfaces/IUserRequest";
 import "../styles/pages/table.scss";
 
 const Table = ()=>{
 
-    const [dataAPI, setDataAPI] = useState([] as UserRequest[]);
+    const [dataAPI, setDataAPI] = useState([] as IUserRequest[]);
 
     async function getData(){
-        const response: UserRequest[] = await getApi("products");
+        const response: IUserRequest[] = await getApi("products");
         setDataAPI(response);
     }
 

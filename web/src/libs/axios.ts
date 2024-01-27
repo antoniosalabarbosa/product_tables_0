@@ -1,10 +1,10 @@
 import axios from "axios";
 import { RoutesTypes } from "../typescript/types/api_config";
-import UserRequest from "../typescript/interfaces/UserRequest";
+import IUserRequest from "../typescript/interfaces/IUserRequest";
 
 export const baseURL = "http://localhost:3001/";
 
-const getApi = async (route: RoutesTypes): Promise<UserRequest[]> =>{
+const getApi = async (route: RoutesTypes): Promise<IUserRequest[]> =>{
     return await axios.get(baseURL + route, {
         headers: {"Content-Type": "application/json"}
     })

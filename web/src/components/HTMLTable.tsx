@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
-import UserRequest from "../typescript/interfaces/UserRequest";
+import IUserRequest from "../typescript/interfaces/IUserRequest";
 import Edit from "../img/pencil.svg";
 import Delete from "../img/trash.png";
 
-const HTMLTableRow = ({name, price}: UserRequest)=>{
+const HTMLTableRow = ({name, price}: IUserRequest)=>{
     return (
         <tr>
             <td>{ name }</td>
@@ -21,25 +21,27 @@ const HTMLTableRow = ({name, price}: UserRequest)=>{
             </td>
         </tr>
     );
-}
+};
 
 const HTMLTable = ({ children }: PropsWithChildren)=>{
     return (
-        <table className="table_container">
-            <caption>Products</caption>
+        <>
+            <table className="table_container">
+                <caption>Products</caption>
 
-            <thead className="table_head">
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th className="controls_column">Controls</th>
-                </tr>
-            </thead>
+                <thead className="table_head">
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th className="controls_column">Controls</th>
+                    </tr>
+                </thead>
 
-            <tbody className="table_body">
-                { children }
-            </tbody>
-        </table>
+                <tbody className="table_body">
+                    { children }
+                </tbody>
+            </table>
+        </>
     );
 };
 
