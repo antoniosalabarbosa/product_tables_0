@@ -6,6 +6,7 @@ import {
 import Home from "./pages/Home";
 import Table from "./pages/Table";
 import Header from "./components/Header";
+import "./styles/main.scss";
 
 const App = ()=>{
     return (

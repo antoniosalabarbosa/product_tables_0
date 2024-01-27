@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getApi } from "../libs/axios";
 import { HTMLTable, HTMLTableRow } from "../components/HTMLTable";
 import UserRequest from "../typescript/interfaces/UserRequest";
+import "../styles/pages/table.scss";
 
 const Table = ()=>{
 

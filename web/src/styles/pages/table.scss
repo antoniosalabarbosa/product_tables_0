@@ -1,0 +1,81 @@
+table{
+    width: 90%;
+    border: 2px solid #222;
+    border-collapse: collapse;
+    border-spacing: 20px;
+
+    caption{
+        margin: 20px 0;
+        font-size: 2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+thead{
+    border-bottom: 2px solid #222;
+    background-color: #341f97;
+
+    tr th{
+        padding: 10px;
+        font-size: 1.5rem;
+        color: #fff;
+        text-align: center;
+
+        &.controls_column{
+            width: 30vw;
+            max-width: 300px;
+        }
+    }
+}
+
+tbody tr{
+    border-bottom: 2px solid #dddddd;
+
+    td{
+        padding: 10px 5px;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    &:nth-of-type(even) {
+        background-color: #f7f7f7;
+    }
+}
+
+td.button_box{
+    display: flex;
+    justify-content: center;
+
+    button{
+        width: 100px;
+        margin: 0 10px;
+        background-color: transparent;
+        cursor: pointer;
+    
+        span{
+            font-size: 1.2rem;
+        }
+    
+        img{
+            width: 16px;
+            height: 16px;
+        }
+
+        &.btn_edit{
+            border: 2px solid green;
+
+            span{
+                color: green;
+            }
+        }
+
+        &.btn_delete{
+            border: 2px solid red;
+
+            span{
+                color: red;
+            }
+        }
+    }
+}
