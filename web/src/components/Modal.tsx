@@ -1,30 +1,37 @@
-import { PropsWithChildren } from "react";
 import useModalContext from "../hooks/useModalContext";
-import IModal from "../typescript/interfaces/IModal";
+import Pencil from "../img/pencil.svg";
 import "../styles/components/modal.scss";
 
-const Modal = ({ tittle, description, img }: PropsWithChildren<IModal>)=>{
+const Modal = ()=>{
     
     const { setModalVis } = useModalContext();
+
+    function handlePutInformations(){
+        setModalVis(false);
+    }
 
     return (
         <div className="modal_container">
             <div className="modal">
-                <div className="header_modal">
-                    <button onClick={()=> setModalVis(false)}>
-                        &times;
-                    </button>
-                </div>
                 <div className="body_modal">
-                    <img src={ img } alt="#" />
-                    <span>{ tittle }</span>
-                    <p>{ description }</p>
+                    <img src={ Pencil } alt="#" />
+                    <span>Edit</span>
+                    <p>Click in "Confirm" to save yours informations.</p>
 
                     <div className="model_button_box">
-                        <button className="btn_confirm">
+                        <button 
+                            className="btn_confirm"
+                            onClick={handlePutInformations}
+                        >
                             Confirm
                         </button>
-                        <button className="btn_cancel">Cancel</button>
+                        
+                        <button 
+                            className="btn_cancel"
+                            onClick={()=> setModalVis(false)}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>
