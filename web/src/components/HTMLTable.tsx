@@ -1,15 +1,22 @@
 import { PropsWithChildren } from "react";
+import useModalContext from "../hooks/useModalContext";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 import Edit from "../img/pencil.svg";
 import Delete from "../img/trash.png";
 
-const HTMLTableRow = ({name, price}: IUserRequest)=>{
+const HTMLTableRow = ({ name, price }: IUserRequest)=>{
+    
+    const { setModalVis } = useModalContext();
+
     return (
         <tr>
             <td>{ name }</td>
             <td>{ price }</td>
             <td className="button_box">
-                <button className="btn_edit">
+                <button 
+                    className="btn_edit"
+                    onClick={()=> setModalVis(true)}
+                >
                     <span>Edit</span>
                     <img src={Edit} alt="Edit" />
                 </button>

@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Table from "./pages/Table";
+import { ModalContextProvider } from "./contexts/ModalContext";
 import Header from "./components/Header";
 import "./styles/main.scss";
 
@@ -16,7 +17,14 @@ const App = ()=>{
 
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/table" element={<Table />} />
+                <Route 
+                    path="/table" 
+                    element={
+                        <ModalContextProvider>
+                            <Table />
+                        </ModalContextProvider>
+                    } 
+                />
             </Routes>
         </BrowserRouter>
     );

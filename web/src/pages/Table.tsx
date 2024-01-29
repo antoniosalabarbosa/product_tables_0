@@ -1,10 +1,21 @@
-import { useState, useEffect } from "react";
+import { 
+    useState,
+    useEffect
+ } from "react";
+
+import { 
+    HTMLTable, 
+    HTMLTableRow 
+} from "../components/HTMLTable";
+import useModalContext from "../hooks/useModalContext";
 import { getApi } from "../libs/axios";
-import { HTMLTable, HTMLTableRow } from "../components/HTMLTable";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 import "../styles/pages/table.scss";
+import Modal from "../components/Modal";
 
 const Table = ()=>{
+
+    const { modalVis } = useModalContext();
 
     const [dataAPI, setDataAPI] = useState([] as IUserRequest[]);
 
@@ -16,20 +27,27 @@ const Table = ()=>{
     useEffect(()=>{ getData() }, []);
 
     return (
-        <HTMLTable>
+        <section>              
+            <HTMLTable>
+                {
+                    dataAPI &&
+                    dataAPI.map(({ _id, name, price }) => {
+                        return (
+                            <HTMLTableRow
+                                key={_id}
+                                name={name}
+                                price={price}
+                            />
+                        );
+                    })
+                }
+            </HTMLTable>
+
             {
-                dataAPI &&
-                dataAPI.map(({ _id, name, price })=>{
-                    return (
-                        <HTMLTableRow
-                            key={_id}
-                            name={name}
-                            price={price}
-                        />
-                    );
-                })
+                modalVis &&
+                <Modal />
             }
-        </HTMLTable>
+        </section>
     );
 };
 
