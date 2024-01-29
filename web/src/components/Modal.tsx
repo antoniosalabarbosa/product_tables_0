@@ -1,8 +1,11 @@
+import { PropsWithChildren } from "react";
 import useModalContext from "../hooks/useModalContext";
+import Input from "./Input";
+import IModal from "../typescript/interfaces/IModal";
 import Pencil from "../img/pencil.svg";
 import "../styles/components/modal.scss";
 
-const Modal = ()=>{
+const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
     
     const { setModalVis } = useModalContext();
 
@@ -15,8 +18,40 @@ const Modal = ()=>{
             <div className="modal">
                 <div className="body_modal">
                     <img src={ Pencil } alt="#" />
-                    <span>Edit</span>
-                    <p>Click in "Confirm" to save yours informations.</p>
+                    <span> { type } </span>
+                    <p>Click in "Confirm" to complete.</p>
+
+                    <div className="modal_input_box">
+                    {
+                        (type === "Edit") ?
+                        <>
+                            <label htmlFor="name_product">
+                                <Input
+                                    id="name_product"
+                                    type="text"
+                                    textContent={name}
+                                />
+                            </label>
+
+                            <label htmlFor="price_product">
+                                <Input
+                                    id="price_product"
+                                    type="text"
+                                    textContent={price}
+                                />
+                            </label>
+                        </>
+                        : 
+                        (
+                        <table>
+                            <tr>
+                                <td>{ name }</td>
+                                <td>{ price }</td>
+                            </tr>
+                        </table>
+                        )
+                    }
+                    </div>
 
                     <div className="model_button_box">
                         <button 

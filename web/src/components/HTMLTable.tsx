@@ -6,7 +6,16 @@ import Delete from "../img/trash.png";
 
 const HTMLTableRow = ({ name, price }: IUserRequest)=>{
     
-    const { setModalVis } = useModalContext();
+    const { setModalVis, setModalContent } = useModalContext();
+
+    function editButton(nameValue: string, priceValue: string){
+        setModalContent({
+            name: nameValue,
+            price: priceValue,
+        });
+
+        setModalVis(true);
+    }
 
     return (
         <tr>
@@ -15,13 +24,15 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
             <td className="button_box">
                 <button 
                     className="btn_edit"
-                    onClick={()=> setModalVis(true)}
+                    onClick={()=> editButton(name, price)}
                 >
                     <span>Edit</span>
                     <img src={Edit} alt="Edit" />
                 </button>
 
-                <button className="btn_delete">
+                <button 
+                    className="btn_delete"
+                >
                     <span>Delete</span>
                     <img src={Delete} alt="Delete" />
                 </button>
