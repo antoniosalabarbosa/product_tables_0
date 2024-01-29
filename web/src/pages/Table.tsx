@@ -9,7 +9,7 @@ const Table = ()=>{
     const [dataAPI, setDataAPI] = useState([] as IUserRequest[]);
 
     async function getData(){
-        const response: IUserRequest[] = await getApi("products");
+        const response: IUserRequest[] = await getApi("/api/Products/getProducts");
         setDataAPI(response);
     }
 
