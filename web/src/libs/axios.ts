@@ -11,8 +11,11 @@ const getProducts = async (route: RoutesTypes): Promise<IUserRequest[]> =>{
     .catch((err)=> console.log(err));
 };
 
-const putProduct = async (route: RoutesTypes, _id: string)=>{
-    await axios.put(baseURL + route + _id, { headers })
+const putProduct = async (route: RoutesTypes, _id: string, data: IUserRequest)=>{
+    await axios.put(baseURL + route + _id, { 
+        name: data.name,
+        price: data.price
+    })
     .then(()=> console.log("Objeto updated"))
     .catch(()=> new Error("Put function isn't working"));;
 };

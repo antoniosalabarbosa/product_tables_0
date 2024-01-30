@@ -1,7 +1,13 @@
-import { PropsWithChildren } from "react";
+import {
+    useRef,
+    PropsWithChildren
+} from "react";
 import useGlobalContext from "../hooks/useGlobalContext";
 import useModalContext from "../hooks/useModalContext";
-import { deleteProduct } from "../libs/axios";
+import { 
+    deleteProduct, 
+    putProduct
+} from "../libs/axios";
 import Input from "./Input";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 import IModal from "../typescript/interfaces/IModal";
@@ -13,8 +19,16 @@ const Modal = ({ type, name, price, itemId }: PropsWithChildren<IModal>)=>{
     const { setCounterRender } = useGlobalContext();
     const { setModalVis } = useModalContext();
 
-    async function handlePutProduct(data: IUserRequest){
-        console.log(data);
+    const inputModalName = useRef<HTMLInputElement>(null);
+    const inputModalPrice = useRef<HTMLInputElement>(null);
+
+    async function handlePutProduct({ _id, name, price }: IUserRequest){
+        await putProduct(
+            "/api/Products/putProduct/", 
+            _id, 
+            { _id, name, price }
+        )
+        .then(()=> setCounterRender( render => render + 1 ));
     };
 
     async function handleDeleteProduct(_id: string){
@@ -36,6 +50,7 @@ const Modal = ({ type, name, price, itemId }: PropsWithChildren<IModal>)=>{
                         <>
                             <label htmlFor="name_product">
                                 <Input
+                                    ref={inputModalName}
                                     _id={`name_product_${itemId}`}
                                     type="text"
                                     textContent={name}
@@ -44,6 +59,7 @@ const Modal = ({ type, name, price, itemId }: PropsWithChildren<IModal>)=>{
 
                             <label htmlFor="price_product">
                                 <Input
+                                    ref={inputModalPrice}
                                     _id={`price_product_${itemId}`}
                                     type="text"
                                     textContent={price}
@@ -72,11 +88,15 @@ const Modal = ({ type, name, price, itemId }: PropsWithChildren<IModal>)=>{
                             onClick={()=>{
                                 setModalVis(false);
 
-                                if(type === "Edit") {
+                                if(
+                                    type === "Edit" &&
+                                    inputModalName.current &&
+                                    inputModalPrice.current
+                                ) {
                                     handlePutProduct({ 
                                         _id: itemId,
-                                        name: name,
-                                        price: price
+                                        name: inputModalName.current.value,
+                                        price: inputModalPrice.current.value
                                     });
                                 };
                                 if(type === "Delete") handleDeleteProduct(itemId);
