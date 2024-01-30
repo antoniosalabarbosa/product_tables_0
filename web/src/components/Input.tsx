@@ -6,14 +6,14 @@ import {
 import InputElement from "../typescript/interfaces/InputElement";
 
 const Input = ({ 
-    id, type, textContent
+    _id, type, textContent
 }: PropsWithChildren<InputElement>)=>{
 
     const [inputContent, setInputContent] = useState(textContent);
 
     return (
         <input
-            id={ id }
+            id={ _id }
             type={ type }
             className="inputModal"
             value={inputContent}

@@ -5,7 +5,7 @@ import IUserRequest from "../typescript/interfaces/IUserRequest";
 import Edit from "../img/pencil.svg";
 import Delete from "../img/trash.png";
 
-const HTMLTableRow = ({ name, price }: IUserRequest)=>{
+const HTMLTableRow = ({ _id, name, price }: IUserRequest)=>{
     
     const { 
         setModalVis, 
@@ -14,23 +14,21 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
     } = useModalContext();
 
     function editButton(
+        idValue: string,
         nameValue: string,
         priceValue: string,
         type: TModal
     ) {
         setModalContent({
+            _id: idValue,
             name: nameValue,
             price: priceValue,
         });
 
-        if(
-            (type === "Edit") ||
-            (type === "Delete")
-        ){
-            setModalType(type)
+        if( (type === ("Edit")) || (type === "Delete") ){
+            setModalType(type);
+            setModalVis(true);
         };
-
-        setModalVis(true);
     };
 
     return (
@@ -40,7 +38,9 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
             <td className="button_box">
                 <button 
                     className="btn_edit"
-                    onClick={()=> editButton(name, price, "Edit")}
+                    onClick={()=> {
+                        editButton(_id, name, price, "Edit")
+                    }}
                 >
                     <span>Edit</span>
                     <img src={Edit} alt="Edit" />
@@ -48,7 +48,9 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
 
                 <button 
                     className="btn_delete"
-                    onClick={()=> editButton(name, price, "Delete")}
+                    onClick={()=> {
+                        editButton(_id, name, price, "Delete")
+                    }}
                 >
                     <span>Delete</span>
                     <img src={Delete} alt="Delete" />

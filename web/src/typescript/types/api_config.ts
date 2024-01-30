@@ -1,8 +1,8 @@
-type get_product = "/api/Products/getProducts/:id";
+type get_product = "/api/Products/getProducts/";
 type get_all_products = "/api/Products/getProducts";
 type post_product = "/api/Products/postProduct";
-type put_product = "/api/Products/putProduct/:id";
-type delete_product = "/api/Products/deleteProduct/:id";
+type put_product = "/api/Products/putProduct/";
+type delete_product = "/api/Products/deleteProduct/";
 
 export type RoutesTypes = (
     get_product | 

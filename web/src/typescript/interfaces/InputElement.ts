@@ -1,5 +1,5 @@
 interface InputElement {
-    id: string,
+    _id: string,
     type: string,
     textContent: string
 }

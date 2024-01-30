@@ -7,13 +7,16 @@ import {
     HTMLTable, 
     HTMLTableRow 
 } from "../components/HTMLTable";
+import useGlobalContext from "../hooks/useGlobalContext";
 import useModalContext from "../hooks/useModalContext";
-import { getApi } from "../libs/axios";
+import { getProducts } from "../libs/axios";
+import Modal from "../components/Modal";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 import "../styles/pages/table.scss";
-import Modal from "../components/Modal";
 
 const Table = ()=>{
+
+    const { countRender } = useGlobalContext();
 
     const { 
         modalVis, 
@@ -24,11 +27,13 @@ const Table = ()=>{
     const [dataAPI, setDataAPI] = useState([] as IUserRequest[]);
 
     async function getData(){
-        const response: IUserRequest[] = await getApi("/api/Products/getProducts");
+        const response: IUserRequest[] = await getProducts("/api/Products/getProducts");
         setDataAPI(response);
     }
 
-    useEffect(()=>{ getData() }, []);
+    useEffect(()=>{
+        if(countRender) getData();
+    }, [countRender]);
 
     return (
         <section>              
@@ -39,6 +44,7 @@ const Table = ()=>{
                         return (
                             <HTMLTableRow
                                 key={_id}
+                                _id={_id}
                                 name={name}
                                 price={price}
                             />
@@ -50,6 +56,7 @@ const Table = ()=>{
             {
                 (modalVis && (modalType) != "") &&
                 <Modal
+                    itemId={modalContent._id}
                     type={modalType}
                     name={modalContent.name}
                     price={modalContent.price}

@@ -7,6 +7,7 @@ import TModal from "../types/TModal";
 
 interface IModal{
     type: TModal;
+    itemId: string;
     name: string;
     price: string; 
 }

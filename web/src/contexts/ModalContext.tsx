@@ -14,6 +14,7 @@ const ModalContextProvider = ({ children }: PropsWithChildren)=>{
     const [modalType, setModalType] = useState<TModal>("");
     const [modalVis, setModalVis] = useState(false);
     const [modalContent, setModalContent] = useState<IUserRequest>({
+        _id: "",
         name: "",
         price: ""
     });

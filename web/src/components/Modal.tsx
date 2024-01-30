@@ -1,17 +1,26 @@
 import { PropsWithChildren } from "react";
+import useGlobalContext from "../hooks/useGlobalContext";
 import useModalContext from "../hooks/useModalContext";
+import { deleteProduct } from "../libs/axios";
 import Input from "./Input";
+import IUserRequest from "../typescript/interfaces/IUserRequest";
 import IModal from "../typescript/interfaces/IModal";
 import Pencil from "../img/pencil.svg";
 import "../styles/components/modal.scss";
 
-const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
+const Modal = ({ type, name, price, itemId }: PropsWithChildren<IModal>)=>{
     
+    const { setCounterRender } = useGlobalContext();
     const { setModalVis } = useModalContext();
 
-    function handlePutInformations(){
-        setModalVis(false);
-    }
+    async function handlePutProduct(data: IUserRequest){
+        console.log(data);
+    };
+
+    async function handleDeleteProduct(_id: string){
+        await deleteProduct("/api/Products/deleteProduct/", _id)
+        .then(()=> setCounterRender( render => render + 1));
+    };
 
     return (
         <div className="modal_container">
@@ -27,7 +36,7 @@ const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
                         <>
                             <label htmlFor="name_product">
                                 <Input
-                                    id="name_product"
+                                    _id={`name_product_${itemId}`}
                                     type="text"
                                     textContent={name}
                                 />
@@ -35,7 +44,7 @@ const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
 
                             <label htmlFor="price_product">
                                 <Input
-                                    id="price_product"
+                                    _id={`price_product_${itemId}`}
                                     type="text"
                                     textContent={price}
                                 />
@@ -60,7 +69,18 @@ const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
                     <div className="model_button_box">
                         <button 
                             className="btn_confirm"
-                            onClick={handlePutInformations}
+                            onClick={()=>{
+                                setModalVis(false);
+
+                                if(type === "Edit") {
+                                    handlePutProduct({ 
+                                        _id: itemId,
+                                        name: name,
+                                        price: price
+                                    });
+                                };
+                                if(type === "Delete") handleDeleteProduct(itemId);
+                            }}
                         >
                             Confirm
                         </button>
