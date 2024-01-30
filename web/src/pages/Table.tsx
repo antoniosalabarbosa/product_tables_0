@@ -15,7 +15,11 @@ import Modal from "../components/Modal";
 
 const Table = ()=>{
 
-    const { modalVis, modalContent } = useModalContext();
+    const { 
+        modalVis, 
+        modalContent,
+        modalType
+    } = useModalContext();
 
     const [dataAPI, setDataAPI] = useState([] as IUserRequest[]);
 
@@ -44,9 +48,9 @@ const Table = ()=>{
             </HTMLTable>
 
             {
-                modalVis &&
+                (modalVis && (modalType) != "") &&
                 <Modal
-                    type="Edit"
+                    type={modalType}
                     name={modalContent.name}
                     price={modalContent.price}
                 />

@@ -43,12 +43,16 @@ const Modal = ({ type, name, price }: PropsWithChildren<IModal>)=>{
                         </>
                         : 
                         (
+                        (type === "Delete") ?
                         <table>
-                            <tr>
-                                <td>{ name }</td>
-                                <td>{ price }</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>{ name }</td>
+                                    <td>{ price }</td>
+                                </tr>
+                            </tbody>
                         </table>
+                        : ""
                         )
                     }
                     </div>

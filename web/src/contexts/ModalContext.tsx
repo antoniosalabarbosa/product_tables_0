@@ -3,7 +3,7 @@ import {
     createContext,
     PropsWithChildren
 } from "react";
-
+import TModal from "../typescript/types/TModal";
 import { IContextModal } from "../typescript/interfaces/IModal";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 
@@ -11,6 +11,7 @@ const ModalContext = createContext<IContextModal | null>(null);
 
 const ModalContextProvider = ({ children }: PropsWithChildren)=>{
 
+    const [modalType, setModalType] = useState<TModal>("");
     const [modalVis, setModalVis] = useState(false);
     const [modalContent, setModalContent] = useState<IUserRequest>({
         name: "",
@@ -20,8 +21,12 @@ const ModalContextProvider = ({ children }: PropsWithChildren)=>{
     const values: IContextModal = {
         modalVis,
         setModalVis,
+        
         modalContent,
-        setModalContent
+        setModalContent,
+
+        modalType, 
+        setModalType
     };
 
     return (

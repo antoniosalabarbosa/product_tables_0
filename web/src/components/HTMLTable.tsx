@@ -1,21 +1,37 @@
 import { PropsWithChildren } from "react";
 import useModalContext from "../hooks/useModalContext";
+import TModal from "../typescript/types/TModal";
 import IUserRequest from "../typescript/interfaces/IUserRequest";
 import Edit from "../img/pencil.svg";
 import Delete from "../img/trash.png";
 
 const HTMLTableRow = ({ name, price }: IUserRequest)=>{
     
-    const { setModalVis, setModalContent } = useModalContext();
+    const { 
+        setModalVis, 
+        setModalContent,
+        setModalType
+    } = useModalContext();
 
-    function editButton(nameValue: string, priceValue: string){
+    function editButton(
+        nameValue: string,
+        priceValue: string,
+        type: TModal
+    ) {
         setModalContent({
             name: nameValue,
             price: priceValue,
         });
 
+        if(
+            (type === "Edit") ||
+            (type === "Delete")
+        ){
+            setModalType(type)
+        };
+
         setModalVis(true);
-    }
+    };
 
     return (
         <tr>
@@ -24,7 +40,7 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
             <td className="button_box">
                 <button 
                     className="btn_edit"
-                    onClick={()=> editButton(name, price)}
+                    onClick={()=> editButton(name, price, "Edit")}
                 >
                     <span>Edit</span>
                     <img src={Edit} alt="Edit" />
@@ -32,6 +48,7 @@ const HTMLTableRow = ({ name, price }: IUserRequest)=>{
 
                 <button 
                     className="btn_delete"
+                    onClick={()=> editButton(name, price, "Delete")}
                 >
                     <span>Delete</span>
                     <img src={Delete} alt="Delete" />
